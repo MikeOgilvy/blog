@@ -17,7 +17,7 @@ title = 'Learning and Practice of Single-Cell Sequencing'
 
 To design an appropriate analysis workflow, the overall strategy was developed based on the guidelines provided by Single Cell Best Practices [^1], with particular emphasis on rigorous data quality assessment, batch effect evaluation, and flexible downstream analysis.
 
-![](single_cell_workflow_even_bigger.png)
+![](https://raw.githubusercontent.com/MikeZhangZiyi/blog/refs/heads/main/public/posts/Single%20Cell/single_cell_workflow_even_bigger.png)
 
 At the beginning of the analysis, potential batch effects were systematically assessed using exploratory data visualization and metadata inspection. This initial evaluation determined whether samples originated from multiple batches or experimental conditions that could introduce technical variation. Based on this assessment, one of two alternative analysis workflows was selected.
 
