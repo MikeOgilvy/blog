@@ -1,0 +1,22 @@
+baseURL = "https://Mike.github.io/"   
+languageCode = "zh-cn"   # 或 "en-us"
+title = "Mike's Blog"
+theme = "PaperMod"
+
+enableRobotsTXT = true
+buildDrafts = false
+
+[params]
+  env = "production"
+  title = "Mike's Blog"
+  description = "Recording life, technology and essays"
+  author = "Mike"
+  DateFormat = "2006-01-02"
+  defaultTheme = "auto"   # 自动深浅模式
+  hideSummary = true      # 关键！隐藏摘要/预览，只显示标题
+  ShowReadingTime = false 
+  ShowWordCount = false
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowToc = false         # 隐藏目录
