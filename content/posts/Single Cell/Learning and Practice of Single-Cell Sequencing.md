@@ -11,6 +11,19 @@ title = 'Learning and Practice of Single-Cell Sequencing'
   max-width: 100%;
 ">
 
+### Abstract
+
+Single-cell RNA sequencing (scRNA-seq) has become an essential technique for studying cellular heterogeneity and complex biological systems. During this winter research training, I systematically studied the general workflow and analytical principles of scRNA-seq based on Single Cell Best Practices and related resources, covering key steps such as data preprocessing, quality control, normalization, dimensionality reduction, clustering, and cell type annotation. To consolidate the knowledge, I first reproduced a complete analysis pipeline using publicly available immune cell data to familiarize myself with standard procedures and tools, then independently applied the same workflow to a publicly available human brain infection-related single-cell dataset, identifying distinct cell populations and infection-associated transcriptional changes across cell types. Overall, this training deepened my understanding of scRNA-seq data analysis, demonstrated the adaptability of standardized workflows to diverse biological contexts, and provided preliminary insights into cellular responses in infected human brain tissue as a foundation for further studies.
+
+# Introduction
+
+Single-cell RNA sequencing (scRNA-seq) has emerged as a powerful technology for profiling gene expression at the resolution of individual cells, enabling the systematic exploration of cellular heterogeneity within complex tissues. Compared with bulk RNA sequencing, scRNA-seq allows the identification of rare cell populations, the characterization of cell states, and the investigation of cell-type–specific responses under different physiological and pathological conditions. As a result, it has been widely applied in studies of immunology, neuroscience, and infectious diseases.
+
+Despite its broad applicability, scRNA-seq data analysis remains challenging due to high technical noise, batch effects, and the complexity of downstream analytical steps. A standardized and well-documented analytical workflow is therefore essential for beginners to correctly process and interpret single-cell data. In recent years, community-driven guidelines such as Single Cell Best Practices have provided comprehensive recommendations covering key steps of scRNA-seq analysis, including quality control, normalization, dimensionality reduction, clustering, and cell type annotation.
+
+In this winter research training, I first studied the general principles and analytical workflow of scRNA-seq by following the Single Cell Best Practices guidelines and other related learning resources. To gain hands-on experience, I reproduced a complete analysis pipeline using publicly available immune cell single-cell datasets. Building on this foundation, I independently collected a human brain infection–related scRNA-seq dataset and applied the same standardized workflow to this dataset. Through comparative analysis, I evaluated the applicability of the workflow to a different biological context and explored cell-type–specific transcriptional changes associated with infection.
+
+This training aimed to strengthen my understanding of scRNA-seq data analysis and to develop practical skills in applying standardized pipelines to real-world datasets, providing a foundation for future research in single-cell transcriptomics.
 
 # Materials and Methods
 ## Learning Resources and Workflow Design
