@@ -18,10 +18,13 @@ title = 'Learning and Practice of Single-Cell Sequencing'
 To design an appropriate analysis workflow, the overall strategy was developed based on the guidelines provided by Single Cell Best Practices [^1], with particular emphasis on rigorous data quality assessment, batch effect evaluation, and flexible downstream analysis.
 
 
-<div style="float: right; margin-right: 15px; margin-bottom: 10px; text-align: center;">
-  <img src="https://raw.githubusercontent.com/MikeZhangZiyi/blog/refs/heads/main/content/posts/Figure/Single_Cell/single_cell_workflow_even_bigger.png" alt="Fig1" style="width: 400px;">
-  <div style="font-size:14px; color:#666;"><strong>Single-cell RNA-seq analysis workflow.</strong> The adaptive strategy branches based on the presence of batch effects: scVI/scANVI for batch-aware integration and semi-supervised annotation (left branch), versus standard PCA-based analysis with CellTypist or marker-based annotation (right branch)</div>
-</div>
+<figure style="float:right; width:420px; margin-left:20px; margin-bottom:10px;">
+  <img src="https://raw.githubusercontent.com/MikeZhangZiyi/blog/refs/heads/main/public/posts/Figure/single_cell_workflow_even_bigger.png" 
+       style="width:100%;">
+  <figcaption style="font-size:0.9em; color:gray;">
+    <strong>Figure 1.</strong>Overview of the single-cell RNA-seq analysis workflow.
+  </figcaption>
+</figure>
 
 At the beginning of the analysis, potential batch effects were systematically assessed using exploratory data visualization and metadata inspection. This initial evaluation determined whether samples originated from multiple batches or experimental conditions that could introduce technical variation. Based on this assessment, one of two alternative analysis workflows was selected.
 
@@ -29,7 +32,8 @@ When clear batch effects were detected, a latent variable-based integration stra
 
 In contrast, when no obvious batch effects were observed, a standard analysis pipeline was employed. This workflow included quality control, normalization, highly variable gene selection, principal component analysis (PCA), neighborhood graph construction, and clustering using the Leiden algorithm. Cell type annotation was subsequently performed using either automated prediction with CellTypist or manual validation against canonical marker genes, depending on data complexity and annotation confidence.
 
-<div style="clear: both;"></div>
+<div class="clearfix"></div>
+
 
 The overall workflow design, including both branches (with and without batch effects), is illustrated in Figure<sup>[1](#Fig1)</sup>. This adaptive workflow design enabled the selection of the most appropriate analytical strategy according to dataset characteristics, ensuring robust batch integration, reliable cell type annotation, and analytical consistency across different single-cell datasets processed during the study.
 
