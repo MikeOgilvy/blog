@@ -21,6 +21,7 @@ paginate = 5
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowToc = true         # 隐藏目录
+  comments = true
 
 [markup]
   [markup.goldmark]
