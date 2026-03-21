@@ -22,6 +22,7 @@ paginate = 5
   ShowBreadCrumbs = true
   ShowToc = true         # 隐藏目录
   comments = true
+  math = true
 
 [markup]
   [markup.goldmark]

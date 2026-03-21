@@ -72,6 +72,18 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });">
 </script><meta property="og:url" content="http://localhost:1313/blog/">
   <meta property="og:site_name" content="Mike&#39;s Blog">
   <meta property="og:title" content="Mike&#39;s Blog">
@@ -132,6 +144,26 @@
 <main class="main"> 
 
 <article class="first-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ML-1 Note: Supervised Learning; Linear Regression
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>ML-1 Note: Supervised Learning; Linear Regression 1. Basic Model of Linear Regression Linear Regression is one of the simplest and most fundamental models in supervised learning.
+The goal is to model the relationship between input features and a continuous target variable.
+Model Form For a dataset with feature vector \(x\):
+\[ y = w^T x &#43; b \]
+or equivalently
+\[ \hat{y} = \theta^T x \]
+where:
+\(x\): input feature vector \(w\): weight vector \(b\): bias term \(\theta\): parameter vector (including bias) \(\hat{y}\): predicted value Loss Function The most common loss function for linear regression is Mean Squared Error (MSE).
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-22 03:32:29 +0800 CST'>2026-03-22</span>&nbsp;·&nbsp;<span>Mike</span></footer>
+  <a class="entry-link" aria-label="post link to ML-1 Note: Supervised Learning; Linear Regression" href="http://localhost:1313/blog/posts/ml/ml---1/"></a>
+</article>
+
+<article class="post-entry"> 
   <header class="entry-header">
     <h2 class="entry-hint-parent">Learning and Practice of Single-Cell Sequencing
     </h2>

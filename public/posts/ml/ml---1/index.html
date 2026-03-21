@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>ML-1 Note: Supervised Learning; Linear Regression | Mike&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="ML-1 Note: Supervised Learning; Linear Regression
+1. Basic Model of Linear Regression
+Linear Regression is one of the simplest and most fundamental models in supervised learning.
+The goal is to model the relationship between input features and a continuous target variable.
+Model Form
+For a dataset with feature vector \(x\):
+\[
+y = w^T x &#43; b
+\]
+or equivalently
+\[
+\hat{y} = \theta^T x
+\]
+where:
+
+\(x\): input feature vector
+\(w\): weight vector
+\(b\): bias term
+\(\theta\): parameter vector (including bias)
+\(\hat{y}\): predicted value
+
+
+Loss Function
+The most common loss function for linear regression is Mean Squared Error (MSE).">
+<meta name="author" content="Mike">
+<link rel="canonical" href="http://localhost:1313/blog/posts/ml/ml---1/">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.a29c24210eb31d9ce56f669c66a35c9c51b17376b7764e336a49af7dec914cf0.css" integrity="sha256-opwkIQ6zHZzlb2acZqNcnFGxc3a3dk4zakmvfeyRTPA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/blog/posts/ml/ml---1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });">
+</script><meta property="og:url" content="http://localhost:1313/blog/posts/ml/ml---1/">
+  <meta property="og:site_name" content="Mike&#39;s Blog">
+  <meta property="og:title" content="ML-1 Note: Supervised Learning; Linear Regression">
+  <meta property="og:description" content="ML-1 Note: Supervised Learning; Linear Regression 1. Basic Model of Linear Regression Linear Regression is one of the simplest and most fundamental models in supervised learning.
+The goal is to model the relationship between input features and a continuous target variable.
+Model Form For a dataset with feature vector \(x\):
+\[ y = w^T x &#43; b \]
+or equivalently
+\[ \hat{y} = \theta^T x \]
+where:
+\(x\): input feature vector \(w\): weight vector \(b\): bias term \(\theta\): parameter vector (including bias) \(\hat{y}\): predicted value Loss Function The most common loss function for linear regression is Mean Squared Error (MSE).">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-03-22T03:32:29+08:00">
+    <meta property="article:modified_time" content="2026-03-22T03:32:29+08:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ML-1 Note: Supervised Learning; Linear Regression">
+  <meta name="twitter:description" content="ML-1 Note: Supervised Learning; Linear Regression 1. Basic Model of Linear Regression Linear Regression is one of the simplest and most fundamental models in supervised learning.
+The goal is to model the relationship between input features and a continuous target variable.
+Model Form For a dataset with feature vector \(x\):
+\[ y = w^T x &#43; b \]
+or equivalently
+\[ \hat{y} = \theta^T x \]
+where:
+\(x\): input feature vector \(w\): weight vector \(b\): bias term \(\theta\): parameter vector (including bias) \(\hat{y}\): predicted value Loss Function The most common loss function for linear regression is Mean Squared Error (MSE).">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/blog/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "ML-1 Note: Supervised Learning; Linear Regression",
+      "item": "http://localhost:1313/blog/posts/ml/ml---1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ML-1 Note: Supervised Learning; Linear Regression",
+  "name": "ML-1 Note: Supervised Learning; Linear Regression",
+  "description": "ML-1 Note: Supervised Learning; Linear Regression 1. Basic Model of Linear Regression Linear Regression is one of the simplest and most fundamental models in supervised learning.\nThe goal is to model the relationship between input features and a continuous target variable.\nModel Form For a dataset with feature vector \\(x\\):\n\\[ y = w^T x + b \\]\nor equivalently\n\\[ \\hat{y} = \\theta^T x \\]\nwhere:\n\\(x\\): input feature vector \\(w\\): weight vector \\(b\\): bias term \\(\\theta\\): parameter vector (including bias) \\(\\hat{y}\\): predicted value Loss Function The most common loss function for linear regression is Mean Squared Error (MSE).\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "ML-1 Note: Supervised Learning; Linear Regression 1. Basic Model of Linear Regression Linear Regression is one of the simplest and most fundamental models in supervised learning.\nThe goal is to model the relationship between input features and a continuous target variable.\nModel Form For a dataset with feature vector \\(x\\):\n\\[ y = w^T x + b \\]\nor equivalently\n\\[ \\hat{y} = \\theta^T x \\]\nwhere:\n\\(x\\): input feature vector \\(w\\): weight vector \\(b\\): bias term \\(\\theta\\): parameter vector (including bias) \\(\\hat{y}\\): predicted value Loss Function The most common loss function for linear regression is Mean Squared Error (MSE).\n\\[ L_{MSE} = \\frac{1}{n}\\sum_{i=1}^{n}(y_i - \\hat{y}_i)^2 \\]\nwhere:\n\\(n\\): number of samples \\(y_i\\): true value \\(\\hat{y}_i\\): predicted value The training objective is:\n\\[ \\min_\\theta L_{MSE} \\]\n2. Solvers for Linear Regression There are two classical ways to solve linear regression:\nGradient Descent (GD) Normal Equation 2.1 Gradient Descent (GD) Gradient Descent is an iterative optimization algorithm.\nUpdate Rule \\[ \\theta := \\theta - \\alpha \\nabla_\\theta L \\]\nwhere:\n\\(\\alpha\\) is the learning rate \\(\\nabla_\\theta L\\) is the gradient of the loss function For MSE:\n\\[ \\nabla_\\theta L = \\frac{2}{n}X^T(X\\theta - y) \\]\nComputational Issue When the dataset is very large:\ncomputing gradients over the entire dataset can be slow. A common trick is to use a smaller subset of data to estimate the gradient, such as:\nStochastic Gradient Descent (SGD) Mini-batch Gradient Descent This reduces computation time and speeds up training.\n2.2 Normal Equation Linear regression also has a closed-form solution.\n\\[ \\theta = (X^T X)^{-1} X^T y \\]\nAdvantages:\nNo iterative optimization required Exact solution Disadvantages:\nMatrix inversion costs \\(O(d^3)\\) Not suitable when the number of features is very large Probability View of Linear Regression Assume the data is generated as:\n\\[ y = w^T x + \\epsilon \\]\nwhere noise:\n\\[ \\epsilon \\sim N(0, \\sigma^2) \\]\nThen the conditional distribution is:\n\\[ p(y|x) = N(w^T x, \\sigma^2) \\]\nThe likelihood for the dataset is:\n\\[ L = \\prod_i p(y_i | x_i) \\]\nTaking the log-likelihood:\n\\[ \\log L = -\\frac{1}{2\\sigma^2}\\sum (y_i - w^T x_i)^2 + C \\]\nMaximizing the log-likelihood is therefore equivalent to minimizing:\n\\[ \\sum (y_i - w^T x_i)^2 \\]\nThus:\n\\[ L_{LL} \\equiv L_{MSE} \\]\nSo MSE minimization is equivalent to Maximum Likelihood Estimation (MLE) under Gaussian noise.\n3. Underfitting and Overfitting Underfitting Underfitting occurs when the model is too simple to capture the true relationship.\nCharacteristics:\nHigh training error High testing error Example:\nfitting a linear model to highly nonlinear data Overfitting Overfitting occurs when the model fits noise in the training data.\nCharacteristics:\nVery low training error High testing error Typical cause:\ntoo many parameters small dataset 4. Regularization to Prevent Overfitting Regularization adds a penalty term to the loss function.\nTwo common methods:\nRidge Regression (L2) Lasso Regression (L1) 4.1 Ridge Regression (L2 Regularization) Ridge regression modifies the loss function:\n\\[ L = \\sum (y_i - w^T x_i)^2 + \\lambda ||w||^2 \\]\nwhere:\n\\(\\lambda\\) controls the regularization strength. Normal Equation for Ridge Regression The closed-form solution becomes:\n\\[ \\theta = (X^T X + \\lambda I)^{-1} X^T y \\]\nAdvantages:\nprevents matrix singularity stabilizes estimation Gradient Descent for Ridge Regression The gradient becomes:\n\\[ \\nabla_\\theta L = \\frac{2}{n}X^T(X\\theta - y) + 2\\lambda\\theta \\]\nUpdate rule:\n\\[ \\theta := \\theta - \\alpha \\nabla_\\theta L \\]\nProbability View of Ridge Regression Ridge regression can be interpreted using Bayesian statistics.\nAssume:\nLikelihood:\n\\[ y|x,w \\sim N(w^T x, \\sigma^2) \\]\nPrior on parameters:\n\\[ w \\sim N(0, \\tau^2 I) \\]\nThen the posterior maximization:\n\\[ \\max_w p(w|D) \\]\nis equivalent to minimizing:\n\\[ \\sum (y_i - w^T x_i)^2 + \\lambda ||w||^2 \\]\nThus:\nRidge regression = MAP estimation with Gaussian prior on weights.\n4.2 Lasso Regression (L1 Regularization) Lasso regression modifies the loss function as:\n\\[ L = \\sum (y_i - w^T x_i)^2 + \\lambda ||w||_1 \\]\nwhere\n\\[ ||w||_1 = \\sum |w_i| \\]\nProperties:\nencourages sparse solutions performs feature selection Common Solution Methods Unlike ridge regression, Lasso does not have a closed-form solution.\nTypical optimization methods include:\nCoordinate Descent Subgradient Methods Least Angle Regression (LARS) Proximal Gradient Methods 5. Model Selection and Generalization Gap 5.1 True Error (Expected Risk) Assume the data are drawn i.i.d. from an unknown distribution (D):\n\\[\r(x,y) \\sim D\r\\]\rFor a model (f) and loss function (L(y,f(x))), the true error (expected risk) is defined as\n\\[ \\mathcal{L}_D(f) = \\mathbb{E}_{(x,y) \\sim D}[L(y,f(x))] \\]\rThis measures the average prediction error over the true data distribution.\n5.2 Validation / Empirical Error Instead, we estimate the performance using a finite validation dataset\n\\[\rD_{val} = \\{(x^{(i)},y^{(i)})\\}_{i=1}^{|D_{val}|}\r\\]\rThe validation error is\n\\[ \\mathcal{L}_{val}(f) = \\frac{1}{|D_{val}|} \\sum_{(x^{(i)},y^{(i)}) \\in D_{val}} L(y^{(i)},f(x^{(i)})) \\]\r5.3 Generalization Gap The generalization gap measures the discrepancy between the true error and the empirical estimate:\n\\[\r\\left| \\mathcal{L}_D(f) - \\mathcal{L}_{val}(f) \\right|\r\\]\rIf the validation set is sampled i.i.d. from the same distribution (D),\n\\[\r\\mathcal{L}_D(f) = \\mathbb{E}_{D_{val} \\sim D}[\\mathcal{L}_{val}(f)]\r\\]\r5.4 Generalization Bound Assume the loss is bounded: \\( L(\\cdot,\\cdot) \\in [a,b] \\) and the validation set \\( D_{val} \\) is drawn i.i.d. from (D).\nWith probability at least \\( 1-\\delta \\),\n\\[\r|\\mathcal{L}_D(f) - \\mathcal{L}_{val}(f)|\r\\le\r\\sqrt{\\frac{(b-a)^2 \\ln(2/\\delta)}{2|D_{val}|}}\r\\]\r5.5 Effect of Testing Multiple Models In model selection, we often test multiple models or hyperparameters. Suppose we evaluate (K) candidate models: \\( f_1,f_2,\\dots,f_K \\).\nThe maximum deviation across all (K) trials can be bounded as:\n\\[\r\\Pr\\left[\r\\mathcal{L}_D(f_k)\r\\ge\r\\mathcal{L}_{val}(f_k)\r+\r\\sqrt{\\frac{(b-a)^2 \\ln(2K/\\delta)}{2|D_{val}|}}\r\\right]\r\\le \\delta\r\\]\r5.6 Interpretation From the bounds above we obtain two important conclusions:\nThe estimation error decreases with dataset size: \\( O\\left(\\frac{1}{\\sqrt{|D_{val}|}}\\right) \\). Testing (K) hyperparameters only increases the risk by \\( O(\\sqrt{\\ln K}) \\). 5.7 Cross-Validation k-fold cross-validation improves data efficiency.\nProcedure:\nSplit dataset into (k) folds. Train (k) models. Average the validation errors: \\[\rL_{CV} = \\frac{1}{k} \\sum_{i=1}^k L_i\r\\]\r",
+  "wordCount" : "967",
+  "inLanguage": "en",
+  "datePublished": "2026-03-22T03:32:29+08:00",
+  "dateModified": "2026-03-22T03:32:29+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Mike"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blog/posts/ml/ml---1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Mike's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/blog/" accesskey="h" title="Mike&#39;s Blog (Alt + H)">Mike&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/blog/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/blog/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      ML-1 Note: Supervised Learning; Linear Regression
+    </h1>
+    <div class="post-meta"><span title='2026-03-22 03:32:29 +0800 CST'>2026-03-22</span>&nbsp;·&nbsp;<span>Mike</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#ml-1-note-supervised-learning-linear-regression" aria-label="ML-1 Note: Supervised Learning; Linear Regression">ML-1 Note: Supervised Learning; Linear Regression</a><ul>
+                        
+                <li>
+                    <a href="#1-basic-model-of-linear-regression" aria-label="1. Basic Model of Linear Regression">1. Basic Model of Linear Regression</a><ul>
+                        
+                <li>
+                    <a href="#model-form" aria-label="Model Form">Model Form</a></li>
+                <li>
+                    <a href="#loss-function" aria-label="Loss Function">Loss Function</a></li></ul>
+                </li>
+                <li>
+                    <a href="#2-solvers-for-linear-regression" aria-label="2. Solvers for Linear Regression">2. Solvers for Linear Regression</a><ul>
+                        
+                <li>
+                    <a href="#21-gradient-descent-gd" aria-label="2.1 Gradient Descent (GD)">2.1 Gradient Descent (GD)</a><ul>
+                        
+                <li>
+                    <a href="#update-rule" aria-label="Update Rule">Update Rule</a></li>
+                <li>
+                    <a href="#computational-issue" aria-label="Computational Issue">Computational Issue</a></li></ul>
+                </li>
+                <li>
+                    <a href="#22-normal-equation" aria-label="2.2 Normal Equation">2.2 Normal Equation</a></li>
+                <li>
+                    <a href="#probability-view-of-linear-regression" aria-label="Probability View of Linear Regression">Probability View of Linear Regression</a></li></ul>
+                </li>
+                <li>
+                    <a href="#3-underfitting-and-overfitting" aria-label="3. Underfitting and Overfitting">3. Underfitting and Overfitting</a><ul>
+                        
+                <li>
+                    <a href="#underfitting" aria-label="Underfitting">Underfitting</a></li>
+                <li>
+                    <a href="#overfitting" aria-label="Overfitting">Overfitting</a></li></ul>
+                </li>
+                <li>
+                    <a href="#4-regularization-to-prevent-overfitting" aria-label="4. Regularization to Prevent Overfitting">4. Regularization to Prevent Overfitting</a><ul>
+                        
+                <li>
+                    <a href="#41-ridge-regression-l2-regularization" aria-label="4.1 Ridge Regression (L2 Regularization)">4.1 Ridge Regression (L2 Regularization)</a><ul>
+                        
+                <li>
+                    <a href="#normal-equation-for-ridge-regression" aria-label="Normal Equation for Ridge Regression">Normal Equation for Ridge Regression</a></li>
+                <li>
+                    <a href="#gradient-descent-for-ridge-regression" aria-label="Gradient Descent for Ridge Regression">Gradient Descent for Ridge Regression</a></li>
+                <li>
+                    <a href="#probability-view-of-ridge-regression" aria-label="Probability View of Ridge Regression">Probability View of Ridge Regression</a></li></ul>
+                </li>
+                <li>
+                    <a href="#42-lasso-regression-l1-regularization" aria-label="4.2 Lasso Regression (L1 Regularization)">4.2 Lasso Regression (L1 Regularization)</a><ul>
+                        
+                <li>
+                    <a href="#common-solution-methods" aria-label="Common Solution Methods">Common Solution Methods</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#5-model-selection-and-generalization-gap" aria-label="5. Model Selection and Generalization Gap">5. Model Selection and Generalization Gap</a><ul>
+                        
+                <li>
+                    <a href="#51-true-error-expected-risk" aria-label="5.1 True Error (Expected Risk)">5.1 True Error (Expected Risk)</a></li>
+                <li>
+                    <a href="#52-validation--empirical-error" aria-label="5.2 Validation / Empirical Error">5.2 Validation / Empirical Error</a></li>
+                <li>
+                    <a href="#53-generalization-gap" aria-label="5.3 Generalization Gap">5.3 Generalization Gap</a></li>
+                <li>
+                    <a href="#54-generalization-bound" aria-label="5.4 Generalization Bound">5.4 Generalization Bound</a></li>
+                <li>
+                    <a href="#55-effect-of-testing-multiple-models" aria-label="5.5 Effect of Testing Multiple Models">5.5 Effect of Testing Multiple Models</a></li>
+                <li>
+                    <a href="#56-interpretation" aria-label="5.6 Interpretation">5.6 Interpretation</a></li>
+                <li>
+                    <a href="#57-cross-validation" aria-label="5.7 Cross-Validation">5.7 Cross-Validation</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="ml-1-note-supervised-learning-linear-regression">ML-1 Note: Supervised Learning; Linear Regression<a hidden class="anchor" aria-hidden="true" href="#ml-1-note-supervised-learning-linear-regression">#</a></h1>
+<h2 id="1-basic-model-of-linear-regression">1. Basic Model of Linear Regression<a hidden class="anchor" aria-hidden="true" href="#1-basic-model-of-linear-regression">#</a></h2>
+<p>Linear Regression is one of the simplest and most fundamental models in <strong>supervised learning</strong>.<br>
+The goal is to model the relationship between input features and a continuous target variable.</p>
+<h3 id="model-form">Model Form<a hidden class="anchor" aria-hidden="true" href="#model-form">#</a></h3>
+<p>For a dataset with feature vector \(x\):</p>
+<p>\[
+y = w^T x + b
+\]</p>
+<p>or equivalently</p>
+<p>\[
+\hat{y} = \theta^T x
+\]</p>
+<p>where:</p>
+<ul>
+<li>\(x\): input feature vector</li>
+<li>\(w\): weight vector</li>
+<li>\(b\): bias term</li>
+<li>\(\theta\): parameter vector (including bias)</li>
+<li>\(\hat{y}\): predicted value</li>
+</ul>
+<hr>
+<h3 id="loss-function">Loss Function<a hidden class="anchor" aria-hidden="true" href="#loss-function">#</a></h3>
+<p>The most common loss function for linear regression is <strong>Mean Squared Error (MSE)</strong>.</p>
+<p>\[
+L_{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
+\]</p>
+<p>where:</p>
+<ul>
+<li>\(n\): number of samples</li>
+<li>\(y_i\): true value</li>
+<li>\(\hat{y}_i\): predicted value</li>
+</ul>
+<p>The training objective is:</p>
+<p>\[
+\min_\theta L_{MSE}
+\]</p>
+<hr>
+<h2 id="2-solvers-for-linear-regression">2. Solvers for Linear Regression<a hidden class="anchor" aria-hidden="true" href="#2-solvers-for-linear-regression">#</a></h2>
+<p>There are two classical ways to solve linear regression:</p>
+<ol>
+<li>Gradient Descent (GD)</li>
+<li>Normal Equation</li>
+</ol>
+<hr>
+<h3 id="21-gradient-descent-gd">2.1 Gradient Descent (GD)<a hidden class="anchor" aria-hidden="true" href="#21-gradient-descent-gd">#</a></h3>
+<p>Gradient Descent is an <strong>iterative optimization algorithm</strong>.</p>
+<h4 id="update-rule">Update Rule<a hidden class="anchor" aria-hidden="true" href="#update-rule">#</a></h4>
+<p>\[
+\theta := \theta - \alpha \nabla_\theta L
+\]</p>
+<p>where:</p>
+<ul>
+<li>\(\alpha\) is the learning rate</li>
+<li>\(\nabla_\theta L\) is the gradient of the loss function</li>
+</ul>
+<p>For MSE:</p>
+<p>\[
+\nabla_\theta L = \frac{2}{n}X^T(X\theta - y)
+\]</p>
+<hr>
+<h4 id="computational-issue">Computational Issue<a hidden class="anchor" aria-hidden="true" href="#computational-issue">#</a></h4>
+<p>When the dataset is very large:</p>
+<ul>
+<li>computing gradients over the <strong>entire dataset</strong> can be slow.</li>
+</ul>
+<p>A common trick is to <strong>use a smaller subset of data</strong> to estimate the gradient, such as:</p>
+<ul>
+<li><strong>Stochastic Gradient Descent (SGD)</strong></li>
+<li><strong>Mini-batch Gradient Descent</strong></li>
+</ul>
+<p>This reduces computation time and speeds up training.</p>
+<hr>
+<h3 id="22-normal-equation">2.2 Normal Equation<a hidden class="anchor" aria-hidden="true" href="#22-normal-equation">#</a></h3>
+<p>Linear regression also has a <strong>closed-form solution</strong>.</p>
+<p>\[
+\theta = (X^T X)^{-1} X^T y
+\]</p>
+<p>Advantages:</p>
+<ul>
+<li>No iterative optimization required</li>
+<li>Exact solution</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Matrix inversion costs \(O(d^3)\)</li>
+<li>Not suitable when the number of features is very large</li>
+</ul>
+<hr>
+<h3 id="probability-view-of-linear-regression">Probability View of Linear Regression<a hidden class="anchor" aria-hidden="true" href="#probability-view-of-linear-regression">#</a></h3>
+<p>Assume the data is generated as:</p>
+<p>\[
+y = w^T x + \epsilon
+\]</p>
+<p>where noise:</p>
+<p>\[
+\epsilon \sim N(0, \sigma^2)
+\]</p>
+<p>Then the conditional distribution is:</p>
+<p>\[
+p(y|x) = N(w^T x, \sigma^2)
+\]</p>
+<p>The likelihood for the dataset is:</p>
+<p>\[
+L = \prod_i p(y_i | x_i)
+\]</p>
+<p>Taking the log-likelihood:</p>
+<p>\[
+\log L = -\frac{1}{2\sigma^2}\sum (y_i - w^T x_i)^2 + C
+\]</p>
+<p>Maximizing the log-likelihood is therefore equivalent to minimizing:</p>
+<p>\[
+\sum (y_i - w^T x_i)^2
+\]</p>
+<p>Thus:</p>
+<p>\[
+L_{LL} \equiv L_{MSE}
+\]</p>
+<p>So <strong>MSE minimization is equivalent to Maximum Likelihood Estimation (MLE)</strong> under Gaussian noise.</p>
+<hr>
+<h2 id="3-underfitting-and-overfitting">3. Underfitting and Overfitting<a hidden class="anchor" aria-hidden="true" href="#3-underfitting-and-overfitting">#</a></h2>
+<h3 id="underfitting">Underfitting<a hidden class="anchor" aria-hidden="true" href="#underfitting">#</a></h3>
+<p>Underfitting occurs when the model is <strong>too simple</strong> to capture the true relationship.</p>
+<p>Characteristics:</p>
+<ul>
+<li>High training error</li>
+<li>High testing error</li>
+</ul>
+<p>Example:</p>
+<ul>
+<li>fitting a linear model to highly nonlinear data</li>
+</ul>
+<hr>
+<h3 id="overfitting">Overfitting<a hidden class="anchor" aria-hidden="true" href="#overfitting">#</a></h3>
+<p>Overfitting occurs when the model <strong>fits noise in the training data</strong>.</p>
+<p>Characteristics:</p>
+<ul>
+<li>Very low training error</li>
+<li>High testing error</li>
+</ul>
+<p>Typical cause:</p>
+<ul>
+<li>too many parameters</li>
+<li>small dataset</li>
+</ul>
+<hr>
+<h2 id="4-regularization-to-prevent-overfitting">4. Regularization to Prevent Overfitting<a hidden class="anchor" aria-hidden="true" href="#4-regularization-to-prevent-overfitting">#</a></h2>
+<p>Regularization adds a <strong>penalty term</strong> to the loss function.</p>
+<p>Two common methods:</p>
+<ol>
+<li>Ridge Regression (L2)</li>
+<li>Lasso Regression (L1)</li>
+</ol>
+<hr>
+<h3 id="41-ridge-regression-l2-regularization">4.1 Ridge Regression (L2 Regularization)<a hidden class="anchor" aria-hidden="true" href="#41-ridge-regression-l2-regularization">#</a></h3>
+<p>Ridge regression modifies the loss function:</p>
+<p>\[
+L = \sum (y_i - w^T x_i)^2 + \lambda ||w||^2
+\]</p>
+<p>where:</p>
+<ul>
+<li>\(\lambda\) controls the regularization strength.</li>
+</ul>
+<hr>
+<h4 id="normal-equation-for-ridge-regression">Normal Equation for Ridge Regression<a hidden class="anchor" aria-hidden="true" href="#normal-equation-for-ridge-regression">#</a></h4>
+<p>The closed-form solution becomes:</p>
+<p>\[
+\theta = (X^T X + \lambda I)^{-1} X^T y
+\]</p>
+<p>Advantages:</p>
+<ul>
+<li>prevents matrix singularity</li>
+<li>stabilizes estimation</li>
+</ul>
+<hr>
+<h4 id="gradient-descent-for-ridge-regression">Gradient Descent for Ridge Regression<a hidden class="anchor" aria-hidden="true" href="#gradient-descent-for-ridge-regression">#</a></h4>
+<p>The gradient becomes:</p>
+<p>\[
+\nabla_\theta L = \frac{2}{n}X^T(X\theta - y) + 2\lambda\theta
+\]</p>
+<p>Update rule:</p>
+<p>\[
+\theta := \theta - \alpha \nabla_\theta L
+\]</p>
+<hr>
+<h4 id="probability-view-of-ridge-regression">Probability View of Ridge Regression<a hidden class="anchor" aria-hidden="true" href="#probability-view-of-ridge-regression">#</a></h4>
+<p>Ridge regression can be interpreted using <strong>Bayesian statistics</strong>.</p>
+<p>Assume:</p>
+<p>Likelihood:</p>
+<p>\[
+y|x,w \sim N(w^T x, \sigma^2)
+\]</p>
+<p>Prior on parameters:</p>
+<p>\[
+w \sim N(0, \tau^2 I)
+\]</p>
+<p>Then the posterior maximization:</p>
+<p>\[
+\max_w p(w|D)
+\]</p>
+<p>is equivalent to minimizing:</p>
+<p>\[
+\sum (y_i - w^T x_i)^2 + \lambda ||w||^2
+\]</p>
+<p>Thus:</p>
+<p><strong>Ridge regression = MAP estimation with Gaussian prior on weights.</strong></p>
+<hr>
+<h3 id="42-lasso-regression-l1-regularization">4.2 Lasso Regression (L1 Regularization)<a hidden class="anchor" aria-hidden="true" href="#42-lasso-regression-l1-regularization">#</a></h3>
+<p>Lasso regression modifies the loss function as:</p>
+<p>\[
+L = \sum (y_i - w^T x_i)^2 + \lambda ||w||_1
+\]</p>
+<p>where</p>
+<p>\[
+||w||_1 = \sum |w_i|
+\]</p>
+<p>Properties:</p>
+<ul>
+<li>encourages <strong>sparse solutions</strong></li>
+<li>performs <strong>feature selection</strong></li>
+</ul>
+<hr>
+<h4 id="common-solution-methods">Common Solution Methods<a hidden class="anchor" aria-hidden="true" href="#common-solution-methods">#</a></h4>
+<p>Unlike ridge regression, Lasso <strong>does not have a closed-form solution</strong>.</p>
+<p>Typical optimization methods include:</p>
+<ul>
+<li>Coordinate Descent</li>
+<li>Subgradient Methods</li>
+<li>Least Angle Regression (LARS)</li>
+<li>Proximal Gradient Methods</li>
+</ul>
+<hr>
+<h2 id="5-model-selection-and-generalization-gap">5. Model Selection and Generalization Gap<a hidden class="anchor" aria-hidden="true" href="#5-model-selection-and-generalization-gap">#</a></h2>
+<h3 id="51-true-error-expected-risk">5.1 True Error (Expected Risk)<a hidden class="anchor" aria-hidden="true" href="#51-true-error-expected-risk">#</a></h3>
+<p>Assume the data are drawn i.i.d. from an unknown distribution (D):</p>
+<div>
+\[
+(x,y) \sim D
+\]
+</div>
+<p>For a model (f) and loss function (L(y,f(x))), the <strong>true error</strong> (expected risk) is defined as</p>
+<div>
+\[ \mathcal{L}_D(f) = \mathbb{E}_{(x,y) \sim D}[L(y,f(x))] \]
+</div>
+<p>This measures the <strong>average prediction error over the true data distribution</strong>.</p>
+<hr>
+<h3 id="52-validation--empirical-error">5.2 Validation / Empirical Error<a hidden class="anchor" aria-hidden="true" href="#52-validation--empirical-error">#</a></h3>
+<p>Instead, we estimate the performance using a <strong>finite validation dataset</strong></p>
+<div>
+\[
+D_{val} = \{(x^{(i)},y^{(i)})\}_{i=1}^{|D_{val}|}
+\]
+</div>
+<p>The <strong>validation error</strong> is</p>
+<div>
+\[ \mathcal{L}_{val}(f) = \frac{1}{|D_{val}|} \sum_{(x^{(i)},y^{(i)}) \in D_{val}} L(y^{(i)},f(x^{(i)})) \]
+</div>
+<hr>
+<h3 id="53-generalization-gap">5.3 Generalization Gap<a hidden class="anchor" aria-hidden="true" href="#53-generalization-gap">#</a></h3>
+<p>The <strong>generalization gap</strong> measures the discrepancy between the true error and the empirical estimate:</p>
+<div>
+\[
+\left| \mathcal{L}_D(f) - \mathcal{L}_{val}(f) \right|
+\]
+</div>
+<p>If the validation set is sampled i.i.d. from the same distribution (D),</p>
+<div>
+\[
+\mathcal{L}_D(f) = \mathbb{E}_{D_{val} \sim D}[\mathcal{L}_{val}(f)]
+\]
+</div>
+<hr>
+<h3 id="54-generalization-bound">5.4 Generalization Bound<a hidden class="anchor" aria-hidden="true" href="#54-generalization-bound">#</a></h3>
+<p>Assume the loss is bounded: \( L(\cdot,\cdot) \in [a,b] \) and the validation set \( D_{val} \) is drawn i.i.d. from (D).</p>
+<p>With probability at least \( 1-\delta \),</p>
+<div>
+\[
+|\mathcal{L}_D(f) - \mathcal{L}_{val}(f)|
+\le
+\sqrt{\frac{(b-a)^2 \ln(2/\delta)}{2|D_{val}|}}
+\]
+</div>
+<hr>
+<h3 id="55-effect-of-testing-multiple-models">5.5 Effect of Testing Multiple Models<a hidden class="anchor" aria-hidden="true" href="#55-effect-of-testing-multiple-models">#</a></h3>
+<p>In model selection, we often test <strong>multiple models or hyperparameters</strong>. Suppose we evaluate (K) candidate models: \( f_1,f_2,\dots,f_K \).</p>
+<p>The maximum deviation across all (K) trials can be bounded as:</p>
+<div>
+\[
+\Pr\left[
+\mathcal{L}_D(f_k)
+\ge
+\mathcal{L}_{val}(f_k)
++
+\sqrt{\frac{(b-a)^2 \ln(2K/\delta)}{2|D_{val}|}}
+\right]
+\le \delta
+\]
+</div>
+<hr>
+<h3 id="56-interpretation">5.6 Interpretation<a hidden class="anchor" aria-hidden="true" href="#56-interpretation">#</a></h3>
+<p>From the bounds above we obtain two important conclusions:</p>
+<ol>
+<li>The estimation error decreases with dataset size: \( O\left(\frac{1}{\sqrt{|D_{val}|}}\right) \).</li>
+<li>Testing (K) hyperparameters only increases the risk by \( O(\sqrt{\ln K}) \).</li>
+</ol>
+<hr>
+<h3 id="57-cross-validation">5.7 Cross-Validation<a hidden class="anchor" aria-hidden="true" href="#57-cross-validation">#</a></h3>
+<p><strong>k-fold cross-validation</strong> improves data efficiency.</p>
+<p>Procedure:</p>
+<ol>
+<li>Split dataset into (k) folds.</li>
+<li>Train (k) models.</li>
+<li>Average the validation errors:</li>
+</ol>
+<div>
+\[
+L_{CV} = \frac{1}{k} \sum_{i=1}^k L_i
+\]
+</div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/blog/posts/single-cell/learning-and-practice-of-single-cell-sequencing/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Learning and Practice of Single-Cell Sequencing</span>
+  </a>
+</nav>
+
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="MikeZhangZiyi/blog"
+        data-repo-id="R_kgDORiHktA"
+        data-category="Announcements"
+        data-category-id="DIC_kwDORiHktM4C4Ege"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/blog/">Mike&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
