@@ -1,2 +1,2 @@
-# Mike.github.io
-My blog
+# My Blog
+[link](https://mikezhangziyi.github.io/blog/)
