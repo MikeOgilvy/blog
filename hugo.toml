@@ -65,21 +65,33 @@ url = "mailto:mikeogilvy25@gmail.com"
 
 [[menu.main]]
     identifier = "posts"
-    name = "📝 Posts"
+    name = "Posts"
     url = "/posts/"
-    weight = 10
-
-[[menu.main]]
-    identifier = "tags"
-    name = "🏷️ Tags"
-    url = "/tags/"
     weight = 20
 
 [[menu.main]]
-    identifier = "search"
-    name = "🔍 Search"
-    url = "/search/"
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
     weight = 30
+
+[[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 40
+
+[[menu.main]]
+    identifier = "ahome"
+    name = "Home"
+    url = "/"
+    weight = 10
+
+[[menu.main]]
+    identifier = "archives"
+    name = "Archive" # 或者叫 "归档"
+    url = "/archives/"
+    weight = 25
 
 [markup]
   [markup.goldmark.renderer]
