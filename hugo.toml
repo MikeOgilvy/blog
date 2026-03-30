@@ -22,14 +22,14 @@ paginate = 5
   ShowPostNavLinks = true
 
 [label]
-  icon = "/images/logo.jpg"
+  icon = "https://mikeogilvy.github.io/blog/Avater.jpg"
   iconHeight = 35
 
 [params.profileMode]
   enabled = true
   title = "Mike Ogilvy "
   subtitle = "<span class='description'></span>"
-  imageUrl = "https://raw.githubusercontent.com/MikeOgilvy/blog/refs/heads/main/static/images/logo.jpg"
+  imageUrl = "https://mikeogilvy.github.io/blog/Avater.jpg"
   imageWidth = 120
   imageHeight = 120
 
