@@ -1,0 +1,9 @@
+<a href="{{ .Get "url" }}" target="_blank" class="friend-card" style="text-decoration: none; color: inherit;">
+  <div style="border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; gap: 15px;">
+    <img src="{{ .Get "avatar" }}" style="width: 50px; height: 50px; border-radius: 50%; margin: 0;">
+    <div>
+      <div style="font-weight: bold;">{{ .Get "name" }}</div>
+      <div style="font-size: 0.9em; opacity: 0.8;">{{ .Get "bio" }}</div>
+    </div>
+  </div>
+</a>

@@ -22,7 +22,7 @@ paginate = 5
   ShowPostNavLinks = true
 
 [label]
-  icon = "https://raw.githubusercontent.com/MikeOgilvy/blog/refs/heads/main/static/images/logo.jpg"
+  icon = "/images/logo.jpg"
   iconHeight = 35
 
 [params.profileMode]
@@ -51,7 +51,7 @@ url = "mailto:mikeogilvy25@gmail.com"
 
 
 [params.assets]
-    favicon = "https://raw.githubusercontent.com/MikeOgilvy/blog/refs/heads/main/static/images/logo.jpg"
+    favicon = "/ico/favicon.ico"
 
 [params.fuseOpts]
     isCaseSensitive = false
@@ -73,13 +73,13 @@ url = "mailto:mikeogilvy25@gmail.com"
     identifier = "tags"
     name = "Tags"
     url = "/tags/"
-    weight = 30
+    weight = 40
 
 [[menu.main]]
     identifier = "search"
     name = "Search"
     url = "/search/"
-    weight = 40
+    weight = 50
 
 [[menu.main]]
     identifier = "home"
@@ -92,6 +92,12 @@ url = "mailto:mikeogilvy25@gmail.com"
     name = "Archive" 
     url = "/archives/"
     weight = 25
+
+[[menu.main]]
+    identifier = "Friends"
+    name = "Friends"
+    url = "/friends"
+    wright = 30
 
 [markup]
   [markup.goldmark.renderer]
