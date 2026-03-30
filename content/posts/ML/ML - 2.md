@@ -14,7 +14,7 @@ In classification problems, the target variable is discrete.
 
 Binary classification example:
 
-$$y \in \{ 0,1 \}$$
+$$y \in \left\\{ 0,1 \right\\}$$
 
 Given input features
 
