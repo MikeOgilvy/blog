@@ -194,6 +194,11 @@
                 </a>
             </li>
             <li>
+                <a href="http://localhost:1313/blog/friends" title="Friends">
+                    <span>Friends</span>
+                </a>
+            </li>
+            <li>
                 <a href="http://localhost:1313/blog/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
@@ -201,11 +206,6 @@
             <li>
                 <a href="http://localhost:1313/blog/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
-                </a>
-            </li>
-            <li>
-                <a href="http://localhost:1313/blog/friends" title="Friends">
-                    <span>Friends</span>
                 </a>
             </li>
         </ul>
@@ -273,19 +273,15 @@
 </a><script>
     document.addEventListener("DOMContentLoaded", function() {
         const text = "Recording life, technology and essays"; 
-        const speed = 100; 
         const target = document.querySelector(".header-description") || document.querySelector(".description");
-        
         if (target) {
             target.innerHTML = '<span class="typing-text"></span><span class="typing-cursor"></span>';
             const textContainer = target.querySelector(".typing-text");
             let i = 0;
-
             function typeWriter() {
                 if (i < text.length) {
-                    textContainer.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, speed);
+                    textContainer.innerHTML += text.charAt(i); i++;
+                    setTimeout(typeWriter, 100);
                 }
             }
             typeWriter();

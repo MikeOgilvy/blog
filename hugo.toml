@@ -97,7 +97,7 @@ url = "mailto:mikeogilvy25@gmail.com"
     identifier = "Friends"
     name = "Friends"
     url = "/friends"
-    wright = 30
+    weight = 30
 
 [markup]
   [markup.goldmark.renderer]

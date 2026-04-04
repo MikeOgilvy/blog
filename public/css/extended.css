@@ -47,3 +47,29 @@
 @keyframes scale-down {
   to { transform: scale(1.02) translateY(-10px); }
 }
+
+/* 基础装饰，不再负责复杂的定位逻辑 */
+.floating-profile {
+    background: var(--entry) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 16px !important;
+    padding: 25px 15px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    box-sizing: border-box !important;
+}
+
+/* 确保主内容区域不会被卡片遮挡 */
+@media screen and (min-width: 1350px) {
+    .main {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 800px !important;
+    }
+}
+
+/* 窄屏直接通过 CSS 强制消失 */
+@media screen and (max-width: 1349px) {
+    #dynamic-profile {
+        display: none !important;
+    }
+}
