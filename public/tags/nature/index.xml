@@ -10,9 +10,9 @@
     <atom:link href="http://localhost:1313/blog/tags/nature/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Qingshan Lake</title>
-      <link>http://localhost:1313/blog/photography/test1/</link>
+      <link>http://localhost:1313/blog/photography/qingshanlake/</link>
       <pubDate>Mon, 06 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/photography/test1/</guid>
+      <guid>http://localhost:1313/blog/photography/qingshanlake/</guid>
       <description>A collection of shots from my trip to the Golden State.</description>
     </item>
   </channel>
